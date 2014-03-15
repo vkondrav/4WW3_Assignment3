@@ -1,0 +1,10 @@
+delete from genre;
+delete from movie;
+delete from whatgenres;
+delete from actor;
+delete from reviewer;
+delete from review;
+delete from award;
+delete from hasaward;
+delete from roletype;
+delete from role;
