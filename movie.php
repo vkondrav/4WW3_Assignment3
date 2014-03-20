@@ -14,7 +14,9 @@
 	  {
 	  die('Error: ' . mysqli_error($con));
 	  }
-	echo "1 record added";
+
+	$movieID = mysqli_insert_id($con);
+	echo "1 record added as ID = " . $movieID;
 
 	mysqli_close($con);
 ?>

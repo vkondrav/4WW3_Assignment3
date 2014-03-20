@@ -1,5 +1,6 @@
 var actorNum = 0;
 var genreNum = 0;
+var reviewNum = 1;
 
 $(document).ready(function(){
   $("#addPerson").click(function(){
@@ -19,7 +20,40 @@ $(document).ready(function(){
     getGenre(genreNum);
     genreNum += 1;
   });
+});
 
+$(document).ready(function(){
+  $("#addReview").click(function(){
+        if (reviewNum > 0)
+        {
+            $("#appendReview").append('<label>Review</label><textarea class="form-control" rows="4" name="review" placeholder="Review"></textarea>');
+            getGenre(genreNum);
+            genreNum += 1;
+            reviewNum -= 1;
+        }
+  });
+  
+});
+
+$(document).ready(function(){
+  $("#submit").click(function(){
+        
+        var request = $.ajax({
+            url: "movie.php",
+            type: "POST",            
+            data:{
+                title: $("input[name='title']").val(),
+                description: $("textarea[name='description'").val(),
+                year_released: $("input[name=year_released]").val(),
+                rating: $("input[name='rating'").val()
+            },
+            success: function(data)
+            {
+               $("#appendSuccess").append('<label>' + data + '</label><br>'); 
+            }
+        });
+        
+  });
   
 });
 
