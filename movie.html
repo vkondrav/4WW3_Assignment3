@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Add Movie</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <form class="form-signin" role="form" action="movie.php" method="post" id="ActorForm">
+        <h2 class="form-signin-heading">Enter Movie Data</h2>
+
+        <input type="text" class="form-control" name="title" placeholder="Movie Title" required autofocus>
+        <textarea class="form-control" rows="3" name="description" placeholder="Description"></textarea>
+        <input type="text" pattern="\d\d\d\d" class="form-control" name="year_released" placeholder="Year Released" required>
+        
+        <label for="name">Rating</label>
+        <div>
+
+          <label class="checkbox-inline">
+            <input type="radio" name="rating" id="optionsRadios3" value="1" checked> 1
+          </label>
+
+          <label class="checkbox-inline">
+            <input type="radio" name="rating" id="optionsRadios4" value="2"> 2
+          </label>
+
+          <label class="checkbox-inline">
+            <input type="radio" name="rating" id="optionsRadios4" value="3"> 3
+          </label>
+
+          <label class="checkbox-inline">
+            <input type="radio" name="rating" id="optionsRadios4" value="4"> 4
+          </label>
+
+          <label class="checkbox-inline">
+            <input type="radio" name="rating" id="optionsRadios4" value="5"> 5
+          </label>
+
+        </div> 
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="addPerson()">Add Person</button>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+      </form>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="java.js"></script>
+  </body>
+</html>

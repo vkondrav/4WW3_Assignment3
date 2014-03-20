@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Form</title>
+    <title>Add Movie</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -20,11 +20,20 @@
   <body>
     <div class="container">
       <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">Enter Movie Data</h2>
-        <input type="text" class="form-control" placeholder="Movie Title" required autofocus>
-        <textarea class="form-control" rows="3" placeholder="Description"></textarea>
-        <input type="text" class="form-control" placeholder="Movie Description" required>
-        <input type="text" class="form-control" placeholder="Year Released" required>
+        <h2 class="form-signin-heading">Enter Review</h2>
+        
+        <fieldset>
+            <label>Movie</label>        
+
+            <select id = "movies" class="form-control myList">
+              <option id ="textForm" value = "1">one</option>
+              <option value = "2">two</option>
+              <option value = "3">three</option>
+              <option value = "4">four</option>
+            </select>
+        </fieldset>
+        
+        <textarea class="form-control" rows="3" placeholder="Comments"></textarea>
         
         <label for="name">Rating</label>
         <div>
@@ -49,34 +58,7 @@
             <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="option5"> 5
           </label>
 
-        </div>
-        
-
-
-        <div class="form-group">         
-
-          <label for="name">Genres</label>
-          <select multiple class="form-control">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-
-        </div>
-
-      <fieldset>
-          <label>Actors</label>        
-             
-             <select id = "myList" class="form-control">
-               <option id ="textForm" value = "1">one</option>
-               <option value = "2">two</option>
-               <option value = "3">three</option>
-               <option value = "4">four</option>
-             </select>
-          
-       </fieldset>
+        </div>           
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
       </form>
