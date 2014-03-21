@@ -11,6 +11,9 @@
 	$characterArray = $_REQUEST['characterArray'];
 	$length = count($actorArray);
 
+	$genreArray = $_REQUEST['genreArray'];
+	$glength = count($genreArray);
+
 	$sql="INSERT INTO Movie (title, description, year_released, rating)
 	VALUES
 	('$_POST[title]','$_POST[description]','$_POST[year_released]','$_POST[rating]')";
@@ -27,6 +30,18 @@
 		$sql="INSERT INTO role (actor_id, type, movie_id, character_name)
 		VALUES
 		(" . $actorArray[$i] . ", '" . $rolesArray[$i] . "' ," . $movieID . ", '" . $characterArray[$i] . "')";
+
+		if (!mysqli_query($con,$sql))
+		  {
+		  die('Error: ' . mysqli_error($con));
+		  }
+	}
+
+	for ($i = 0; $i < $glength; $i++)
+	{
+		$sql="INSERT INTO whatgenres (movie_id, genre_name)
+		VALUES
+		(" . $movieID . ", '" . $genreArray[$i] . "')";
 
 		if (!mysqli_query($con,$sql))
 		  {

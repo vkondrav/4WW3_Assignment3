@@ -38,6 +38,9 @@ $(document).ready(function(){
     var actorArray = [];
     var rolesArray = [];
     var characterArray = [];
+
+    var genreArray = [];
+
     var title;
     var description;
     var year_released;
@@ -57,6 +60,14 @@ $(document).ready(function(){
     }
     else
         $("#emptyTitleAlert").slideUp('400');
+
+    if (title.indexOf(';') != -1)
+    {   
+        $("#incorrectTitleAlert").slideDown('400');
+        return;
+    }
+    else
+        $("#incorrectTitleAlert").slideUp('400');
 
     if (description.indexOf(';') != -1)
     {   
@@ -97,6 +108,11 @@ $(document).ready(function(){
         characterArray[i] = $("#charName" + i).val();
     }
 
+    for(i = 0; i < genreNum; i++)
+    {
+        genreArray[i] = $("#genre" + i).val();
+    }
+
     var request = $.ajax({
         url: "movie.php",
         type: "POST",            
@@ -107,7 +123,8 @@ $(document).ready(function(){
             rating: $("input[name='rating'").val(),
             actorArray: actorArray,
             rolesArray: rolesArray,
-            characterArray: characterArray
+            characterArray: characterArray,
+            genreArray: genreArray
         },
         success: function(data)
         {

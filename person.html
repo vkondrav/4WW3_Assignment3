@@ -17,19 +17,70 @@
     <link href="style.css" rel="stylesheet">
   </head>
 
-  <body>
+<body>
     <div class="container">
-      <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">Enter Person Data</h2>
-        <input type="text" class="form-control" placeholder="First Name" required autofocus>
-        <input type="text" class="form-control" placeholder="Middle Name" required>
-        <input type="text" class="form-control" placeholder="Last Name" required>
-        <label for="name">Date of Birth</label>
-        <input type="date" id="birthday" class="form-control" required>             
+      <form class="form-signin" role="form" action="person.php" method="post">
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <h2 class="form-signin-heading">Enter Person Data</h2>
+
+        <div id="emptyFirstNameAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Empty First Name
+        </div>
+
+        <div id="incorrectFirstNameAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect First Name Syntax. Cannot contain semicolon (;)
+        </div>
+
+        <input type="text" class="form-control butt" name="firstname" placeholder="First Name" autofocus>
+
+        <div id="incorrectMiddleNameAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Middle Name Syntax. Cannot contain semicolon (;)
+        </div>
+
+        <input type="text" class="form-control butt" name="middlename" placeholder="Middle Name">
+
+        <div id="emptyLastNameAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Empty Last Name
+        </div>
+
+        <div id="incorrectLastNameAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Last Name Syntax. Cannot contain semicolon (;)
+        </div>
+
+        <input type="text" class="form-control butt" name="lastname" placeholder="Last Name"> 
+
+        <div id="incorrectRangeAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Date of Birth format, please double check.
+        </div>       
+
+        <input type="date" class="form-control butt" name="birthdate">      
+
+        <div id="appendMovie"></div>        
+
+        <button class="btn btn-lg btn-primary btn-block butt" type="button" id="addMovie">Add Movie</button>
+
+        <div id="appendAward"></div>
+
+        <button class="btn btn-lg btn-primary btn-block butt" type="button" id="addAward">Add Award</button>
+
+        <div id="appendSuccess"></div>
+
+        <div id="successAlert" class="alert alert-success alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Well Done!</strong> <a id="success"></a>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="submit">Submit</button>
       </form>
     </div>
     <script src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="javaPerson.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
