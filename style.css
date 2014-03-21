@@ -52,3 +52,12 @@ textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.hidden{
+  display: none;
+}
+
+input[type="radio"]
+{
+  margin: 0px 6px;
+}

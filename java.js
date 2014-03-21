@@ -3,58 +3,120 @@ var genreNum = 0;
 var reviewNum = 1;
 
 $(document).ready(function(){
-  $("#addPerson").click(function(){
-    $("#appendPerson").append('<fieldset><label>Person</label><select id = "persons'+ actorNum + '" class="form-control myList"></select></fieldset>');
-    getPersons(actorNum);
-    $("#appendPerson").append('<fieldset><label>Responsibility</label><select id = "roles'+ actorNum + '" class="form-control myList"></select></fieldset>');
-    getRoles(actorNum);
-    actorNum += 1;
-  });
 
-  
-});
+     $("#addPerson").click(function(){
+        $("#appendPerson").append("<div id= 'a" + actorNum + "' style='display: none'></div>");
+        $("#a" + actorNum).append('<fieldset><label>Person</label><select id = "persons'+ actorNum + '" class="form-control myList"></select></fieldset>');        
+        getPersons(actorNum);
+        $("#a" + actorNum).append('<fieldset><label>Responsibility</label><select id = "roles'+ actorNum + '" class="form-control myList"></select></fieldset>');
+        getRoles(actorNum);
+        $("#a" + actorNum).append('<input type="text" id = "charName'+ actorNum + '" class="form-control" placeholder="Character Name (optional)"></input>');
+        $("#a" + actorNum).slideDown('400');
+        actorNum += 1;
+    });
 
-$(document).ready(function(){
-  $("#addGenre").click(function(){
-    $("#appendGenre").append('<fieldset><label>Genre</label><select id = "genre'+ genreNum + '" class="form-control myList"></select></fieldset>');
-    getGenre(genreNum);
-    genreNum += 1;
-  });
-});
+    $("#addGenre").click(function(){
+        $("#appendGenre").append("<div id= 'g" + genreNum + "' style='display: none'></div>");
+        $("#g" + genreNum).append('<fieldset><label>Genre</label><select id = "genre'+ genreNum + '" class="form-control myList"></select></fieldset>');
+        getGenre(genreNum);
+        $("#g" + genreNum).slideDown('400');
+        genreNum += 1;
+    });
 
-$(document).ready(function(){
-  $("#addReview").click(function(){
+    $("#addReview").click(function(){
         if (reviewNum > 0)
         {
-            $("#appendReview").append('<label>Review</label><textarea class="form-control" rows="4" name="review" placeholder="Review"></textarea>');
-            getGenre(genreNum);
-            genreNum += 1;
+            $("#appendReview").append('<div id= "r" style="display: none"><label>Review</label><textarea class="form-control" rows="4" name="review" placeholder="Review"></textarea></div>');
+            $("#r").slideDown('400');
             reviewNum -= 1;
         }
-  });
-  
-});
+    });
 
-$(document).ready(function(){
   $("#submit").click(function(){
-        
-        var request = $.ajax({
-            url: "movie.php",
-            type: "POST",            
-            data:{
-                title: $("input[name='title']").val(),
-                description: $("textarea[name='description'").val(),
-                year_released: $("input[name=year_released]").val(),
-                rating: $("input[name='rating'").val()
-            },
-            success: function(data)
-            {
-               $("#appendSuccess").append('<label>' + data + '</label><br>'); 
-            }
-        });
-        
-  });
-  
+    
+    $("#successAlert").slideUp('400');
+    var actorArray = [];
+    var rolesArray = [];
+    var characterArray = [];
+    var title;
+    var description;
+    var year_released;
+    var review;
+
+    var reg = new RegExp(/^[0-9]*$/);
+
+    title = $("input[name='title']").val();
+    description = $("textarea[name='description'").val();
+    year_released = $("input[name=year_released]").val();
+    review = $("textarea[name=review]").val();
+
+    if (title == "")
+    {   
+        $("#emptyTitleAlert").slideDown('400');
+        return;
+    }
+    else
+        $("#emptyTitleAlert").slideUp('400');
+
+    if (description.indexOf(';') != -1)
+    {   
+        $("#incorrectDescriptionAlert").slideDown('400');
+        return;
+    }
+    else
+        $("#incorrectDescriptionAlert").slideUp('400');
+
+    if (!reg.test(year_released))
+    {
+        $("#incorrectYearAlert").slideDown('400');
+        return;    
+    }
+    else
+        $("#incorrectYearAlert").slideUp('400');
+
+    if (parseInt(year_released) < 1901 || parseInt(year_released) > 2155)
+    {
+        $("#incorrectRangeAlert").slideDown('400');
+        return;    
+    }
+    else
+        $("#incorrectRangeAlert").slideUp('400');
+
+    if (review != null && review.indexOf(';') != -1)
+    {   
+        $("#incorrectReviewAlert").slideDown('400');
+        return;
+    }
+    else
+        $("#incorrectReviewAlert").slideUp('400');
+
+    for(i = 0; i < actorNum; i++)
+    {
+        actorArray[i] = $("#persons" + i).val();
+        rolesArray[i] = $("#roles" + i).val();
+        characterArray[i] = $("#charName" + i).val();
+    }
+
+    var request = $.ajax({
+        url: "movie.php",
+        type: "POST",            
+        data:{
+            title: title,
+            description: description,
+            year_released: year_released,
+            rating: $("input[name='rating'").val(),
+            actorArray: actorArray,
+            rolesArray: rolesArray,
+            characterArray: characterArray
+        },
+        success: function(data)
+        {
+           //$("#appendSuccess").append('<label>' + data + '</label><br>'); 
+           $("#success").html(data);
+           $("#successAlert").slideDown('400');
+        }
+    });        
+  });  
 });
 
 function getPersons(actorNum) {
@@ -77,7 +139,7 @@ function getPersons(actorNum) {
 function getRoles(actorNum) {
 
     var request = $.ajax({
-        url: "getRespons.php",
+        url: "getRoles.php",
         type: "GET",            
         dataType: "html"
     });

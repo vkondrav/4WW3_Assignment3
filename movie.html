@@ -22,9 +22,36 @@
       <form class="form-signin" role="form" action="movie.php" method="post" id="ActorForm">
         <h2 class="form-signin-heading">Enter Movie Data</h2>
 
-        <input type="text" class="form-control" name="title" placeholder="Movie Title" required autofocus>
+        <div id="emptyTitleAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Empty Movie Title
+        </div>
+
+        <div id="incorrectTitleAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Movie Title Syntax. Cannot contain semicolon (;)
+        </div>
+
+        <input type="text" class="form-control" name="title" placeholder="Movie Title" autofocus>
+
+        <div id="incorrectDescriptionAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Description Syntax. Cannot contain semicolon (;)
+        </div>
+
         <textarea class="form-control" rows="3" name="description" placeholder="Description"></textarea>
-        <input type="text" pattern="\d\d\d\d" class="form-control" name="year_released" placeholder="Year Released" required>
+
+        <div id="incorrectYearAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Year Syntax. Use numerals from 0 - 9 only
+        </div>
+
+        <div id="incorrectRangeAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Year Released Range. Must be between 1901 and 2155
+        </div>
+
+        <input type="text" class="form-control" name="year_released" placeholder="Year Released">
         
         <label for="name">Rating</label>
         <div>
@@ -58,6 +85,11 @@
         <div id="appendGenre"></div>
 
         <button class="btn btn-lg btn-primary btn-block butt" type="button" id="addGenre">Add Genre</button>
+        
+        <div id="incorrectReviewAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Warning!</strong> Incorrect Review Syntax. Cannot contain semicolon (;)
+        </div>
 
         <div id="appendReview"></div>
 
@@ -65,10 +97,16 @@
 
         <div id="appendSuccess"></div>
 
+        <div id="successAlert" class="alert alert-success alert-dismissable butt" style="display: none">  
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
+          <strong>Well Done!</strong> <a id="success"></a>
+        </div>
+
         <button class="btn btn-lg btn-primary btn-block" type="button" id="submit">Submit</button>
       </form>
     </div>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="java.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

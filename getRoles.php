@@ -11,7 +11,7 @@
 	while($row = mysqli_fetch_array($result))
 	  {
 	  	$n = $row["TYPE"];
-	  	echo '<option id ="textForm" value = "1">'. $n . '</option>';	  	
+	  	echo '<option id ="textForm">'. $n . '</option>';	  	
 	  }
 
 	mysqli_close($con);
