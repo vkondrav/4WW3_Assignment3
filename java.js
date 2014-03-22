@@ -2,7 +2,7 @@ var actorNum = 0;
 var genreNum = 0;
 var reviewNum = 1;
 
-$(document).ready(function(){
+$("#movie").ready(function(){
     var actorHash;
     var genreHash;
 
@@ -143,13 +143,33 @@ $(document).ready(function(){
         },
         success: function(data)
         {
-           //$("#appendSuccess").append('<label>' + data + '</label><br>'); 
+           clearAll(); 
            $("#success").html(data);
            $("#successAlert").slideDown('400');
         }
     });        
   });  
 });
+
+function clearAll()
+{
+    $("input[name='title']").val("")
+    $("textarea[name='description'").val("");
+    $("input[name=year_released]").val("");
+    $("textarea[name=review]").val("");
+
+    for(i = 0; i < actorNum; i++)
+    {
+        $("#a" + i).remove();
+    }
+
+    for(i=0; i < genreNum; i++)
+    {
+        $("#g" + i).remove();
+    }
+
+    $("#r").remove();
+}
 
 function closeDiv(tag){
     $(tag).remove();
