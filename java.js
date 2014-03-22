@@ -8,11 +8,15 @@ $("#movie").ready(function(){
 
      $("#addPerson").click(function(){
         actorHash = "#a" + actorNum;
-        $("#appendPerson").append("<div id= 'a" + actorNum + "' style='display: none'></div>");        
+
+        $("#appendPerson").append("<div id= 'a" + actorNum + "' style='display: none'></div>");  
+
         $(actorHash).append('<fieldset><label>Person</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#a' + actorNum + '")></button><select id = "persons'+ actorNum + '" class="form-control myList"></select></fieldset>');        
-        getPersons(actorNum);
+        getPHPlist("getPersons.php", "#persons", actorNum);
+
         $(actorHash).append('<fieldset><label>Responsibility</label><select id = "roles'+ actorNum + '" class="form-control myList"></select></fieldset>');
-        getRoles(actorNum);
+        getPHPlist("getRoles.php", "#roles", actorNum);
+
         $(actorHash).append('<input type="text" id = "charName'+ actorNum + '" class="form-control" placeholder="Character Name (optional)"></input>');
         $(actorHash).slideDown('400');
         actorNum += 1;
@@ -20,9 +24,11 @@ $("#movie").ready(function(){
 
     $("#addGenre").click(function(){
         genreHash = "#g" + genreNum;
+
         $("#appendGenre").append("<div id= 'g" + genreNum + "' style='display: none'></div>");
+
         $(genreHash).append('<fieldset><label>Genre</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#g' + genreNum + '")></button><select id = "genre'+ genreNum + '" class="form-control myList"></select></fieldset>');
-        getGenre(genreNum);
+        getPHPlist("getGenre.php", "#genre", genreNum);
         $(genreHash).slideDown('400');
         genreNum += 1;
     });
@@ -147,6 +153,11 @@ $("#movie").ready(function(){
            $("#success").html(data);
            $("#successAlert").slideDown('400');
         }
+        error: function(data)
+        { 
+           $("#failure").html(data);
+           $("#failureAlert").slideDown('400');
+        }
     });        
   });  
 });
@@ -180,53 +191,20 @@ function closeDiv(tag){
     }
 }
 
-function getPersons(actorNum) {
+function getPHPlist(url, hash, num){
 
     var request = $.ajax({
-        url: "getPersons.php",
+        url: url,
         type: "GET",            
         dataType: "html"
     });
 
     request.done(function(msg) {
-        $("#persons" + actorNum).append(msg);          
+        $(hash + num).append(msg);          
     });
 
     request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
-}
-
-function getRoles(actorNum) {
-
-    var request = $.ajax({
-        url: "getRoles.php",
-        type: "GET",            
-        dataType: "html"
-    });
-
-    request.done(function(msg) {
-        $("#roles" + actorNum).append(msg);          
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
-}
-
-function getGenre(genreNum) {
-
-    var request = $.ajax({
-        url: "getGenre.php",
-        type: "GET",            
-        dataType: "html"
-    });
-
-    request.done(function(msg) {
-        $("#genre" + genreNum).append(msg);          
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
+        $("#failure").html("Request failed: " + textStatus);
+        $("#failureAlert").slideDown('400');
     });
 }
