@@ -9,7 +9,7 @@
 	$movieArray = $_REQUEST['movieArray'];
 	$rolesArray = $_REQUEST['rolesArray'];
 	$characterArray = $_REQUEST['characterArray'];
-	$length = count($actorArray);
+	$length = count($movieArray);
 
 	$awardArray = $_REQUEST['awardArray'];
 	$award_movieArray = $_REQUEST['award_movieArray'];
@@ -27,28 +27,35 @@
 
 	$actorID = mysqli_insert_id($con);
 
-	for ($i = 0; $i < $length; $i++)
+	if ($movieArray[0] != "NULL")
 	{
-		$sql="INSERT INTO role (actor_id, type, movie_id, character_name)
-		VALUES
-		(" . $actorID . ", '" . $rolesArray[$i] . "' ," . $movieArray[$i] . ", '" . $characterArray[$i] . "')";
+		for ($i = 0; $i < $length; $i++)
+		{
+			$sql="INSERT INTO role (actor_id, type, movie_id, character_name)
+			VALUES
+			(" . $actorID . ", '" . $rolesArray[$i] . "' ," . $movieArray[$i] . ", '" . $characterArray[$i] . "')";
 
-		if (!mysqli_query($con,$sql))
-		  {
-		  die('Error: ' . mysqli_error($con));
-		  }
+			if (!mysqli_query($con,$sql))
+			  {
+			  die('Error 1: ' . mysqli_error($con));
+			  }
+		}
 	}
 
-	for ($i = 0; $i < $alength; $i++)
+	if ($awardArray[0] != "NULL")
 	{
-		$sql="INSERT INTO hasaward (actor_id, award_id, movie_id, year_received)
-		VALUES
-		(" . $actorID . ", " . $awardArray[$i] . " ," . $movieArray[$i] . ", " . $year_receivedArray[$i] . ")";
+		for ($i = 0; $i < $alength; $i++)
+		{
+			echo $year_receivedArray[$i];
+			$sql="INSERT INTO hasaward (actor_id, award_id, movie_id, year_received)
+			VALUES
+			(" . $actorID . ", " . $awardArray[$i] . ", " . $movieArray[$i] . ", '" . $year_receivedArray[$i] . "')";
 
-		if (!mysqli_query($con,$sql))
-		  {
-		  die('Error: ' . mysqli_error($con));
-		  }
+			if (!mysqli_query($con,$sql))
+			  {
+			  die('Error 2:' . mysqli_error($con));
+			  }
+		}
 	}
 
 	echo "1 record added as ID = " . $actorID;

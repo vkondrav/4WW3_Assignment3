@@ -20,7 +20,7 @@ $(document).ready(function(){
         getAward(awardNum);
         $("#a" + awardNum).append('<fieldset><label>Awarded for Movie</label><select id = "award_movie'+ awardNum + '" class="form-control myList"></select></fieldset>');        
         getAward_Movies(awardNum);
-        $("#a" + movieNum).append('<input type="date" id = "year_received'+ awardNum + '" class="form-control"></input>');
+        $("#a" + movieNum).append('<input type="text" id = "year_received'+ awardNum + '" class="form-control butt" placeholder="Year Received"></input>');
         $("#a" + awardNum).slideDown('400');
         awardNum += 1;
     });
@@ -28,12 +28,12 @@ $(document).ready(function(){
   $("#submit").click(function(){
     
     $("#successAlert").slideUp('400');
-    var movieArray = [];
-    var rolesArray = [];
-    var characterArray = [];
-    var awardArray = [];
-    var award_movieArray = [];
-    var year_receivedArray = [];
+    var movieArray = ["NULL"];
+    var rolesArray = ["NULL"];
+    var characterArray = ["NULL"];
+    var awardArray = ["NULL"];
+    var award_movieArray = ["NULL"];
+    var year_receivedArray = ["NULL"];
 
     var firstname;
     var middlename;

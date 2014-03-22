@@ -3,30 +3,34 @@ var genreNum = 0;
 var reviewNum = 1;
 
 $(document).ready(function(){
+    var actorHash;
+    var genreHash;
 
      $("#addPerson").click(function(){
-        $("#appendPerson").append("<div id= 'a" + actorNum + "' style='display: none'></div>");
-        $("#a" + actorNum).append('<fieldset><label>Person</label><select id = "persons'+ actorNum + '" class="form-control myList"></select></fieldset>');        
+        actorHash = "#a" + actorNum;
+        $("#appendPerson").append("<div id= 'a" + actorNum + "' style='display: none'></div>");        
+        $(actorHash).append('<fieldset><label>Person</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#a' + actorNum + '")></button><select id = "persons'+ actorNum + '" class="form-control myList"></select></fieldset>');        
         getPersons(actorNum);
-        $("#a" + actorNum).append('<fieldset><label>Responsibility</label><select id = "roles'+ actorNum + '" class="form-control myList"></select></fieldset>');
+        $(actorHash).append('<fieldset><label>Responsibility</label><select id = "roles'+ actorNum + '" class="form-control myList"></select></fieldset>');
         getRoles(actorNum);
-        $("#a" + actorNum).append('<input type="text" id = "charName'+ actorNum + '" class="form-control" placeholder="Character Name (optional)"></input>');
-        $("#a" + actorNum).slideDown('400');
+        $(actorHash).append('<input type="text" id = "charName'+ actorNum + '" class="form-control" placeholder="Character Name (optional)"></input>');
+        $(actorHash).slideDown('400');
         actorNum += 1;
     });
 
     $("#addGenre").click(function(){
+        genreHash = "#g" + genreNum;
         $("#appendGenre").append("<div id= 'g" + genreNum + "' style='display: none'></div>");
-        $("#g" + genreNum).append('<fieldset><label>Genre</label><select id = "genre'+ genreNum + '" class="form-control myList"></select></fieldset>');
+        $(genreHash).append('<fieldset><label>Genre</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#g' + genreNum + '")></button><select id = "genre'+ genreNum + '" class="form-control myList"></select></fieldset>');
         getGenre(genreNum);
-        $("#g" + genreNum).slideDown('400');
+        $(genreHash).slideDown('400');
         genreNum += 1;
     });
 
     $("#addReview").click(function(){
         if (reviewNum > 0)
         {
-            $("#appendReview").append('<div id= "r" style="display: none"><label>Review</label><textarea class="form-control" rows="4" name="review" placeholder="Review"></textarea></div>');
+            $("#appendReview").append('<div id= "r" style="display: none"><label>Review</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#r")></button><textarea class="form-control" rows="4" name="review" placeholder="Review"></textarea></div>');
             $("#r").slideDown('400');
             reviewNum -= 1;
         }
@@ -35,11 +39,11 @@ $(document).ready(function(){
   $("#submit").click(function(){
     
     $("#successAlert").slideUp('400');
-    var actorArray = [];
-    var rolesArray = [];
-    var characterArray = [];
+    var actorArray = ["NULL"];
+    var rolesArray = ["NULL"];
+    var characterArray = ["NULL"];
 
-    var genreArray = [];
+    var genreArray = ["NULL"];
 
     var title;
     var description;
@@ -101,16 +105,27 @@ $(document).ready(function(){
     else
         $("#incorrectReviewAlert").slideUp('400');
 
+    ii = 0;
     for(i = 0; i < actorNum; i++)
     {
-        actorArray[i] = $("#persons" + i).val();
-        rolesArray[i] = $("#roles" + i).val();
-        characterArray[i] = $("#charName" + i).val();
+        if($("#persons" + i).length)
+        {
+            actorArray[ii] = $("#persons" + i).val();
+            rolesArray[ii] = $("#roles" + i).val();
+            characterArray[ii] = $("#charName" + i).val();
+            ii ++;
+        }
+
     }
 
+    ii = 0;
     for(i = 0; i < genreNum; i++)
     {
-        genreArray[i] = $("#genre" + i).val();
+        if($("#genre" + i).val())
+        {
+            genreArray[i] = $("#genre" + i).val();
+            ii ++;
+        }
     }
 
     var request = $.ajax({
@@ -135,6 +150,15 @@ $(document).ready(function(){
     });        
   });  
 });
+
+function closeDiv(tag){
+    $(tag).remove();
+
+    if (tag == "#r") 
+    {
+        reviewNum ++;
+    }
+}
 
 function getPersons(actorNum) {
 

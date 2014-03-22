@@ -10,7 +10,7 @@
 
 	while($row = mysqli_fetch_array($result))
 	  {
-	  	$n = $row["GENRE_NAME"];
+	  	$n = $row["genre_name"];
 	  	echo '<option id ="textForm">'. $n . '</option>';	  	
 	  }
 

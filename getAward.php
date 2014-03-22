@@ -10,8 +10,8 @@
 
 	while($row = mysqli_fetch_array($result))
 	  {
-	  	$id = $row["AWARD_ID"];
-	  	$n = $row["NAME"] . " for " . $row["REASON"];
+	  	$id = $row["award_id"];
+	  	$n = $row["name"] . " for " . $row["reason"];
 	  	echo '<option id ="textForm" value = ' . $id . '>'. $n . '</option>';	  	
 	  }
 

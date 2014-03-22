@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Add Movie</title>
+    <title>Create Movie</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
   <body>
     <div class="container">
       <form class="form-signin" role="form" action="movie.php" method="post">
-        <h2 class="form-signin-heading">Enter Movie Data</h2>
+        <h2 class="form-signin-heading">Create Movie</h2>
 
         <div id="emptyTitleAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
@@ -32,14 +32,14 @@
           <strong>Warning!</strong> Incorrect Movie Title Syntax. Cannot contain semicolon (;)
         </div>
 
-        <input type="text" class="form-control" name="title" placeholder="Movie Title" autofocus>
+        <input type="text" class="form-control butt" name="title" placeholder="Movie Title" autofocus>
 
         <div id="incorrectDescriptionAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
           <strong>Warning!</strong> Incorrect Description Syntax. Cannot contain semicolon (;)
         </div>
 
-        <textarea class="form-control" rows="3" name="description" placeholder="Description"></textarea>
+        <textarea class="form-control butt" rows="3" name="description" placeholder="Description"></textarea>
 
         <div id="incorrectYearAlert" class="alert alert-warning alert-dismissable butt" style="display: none">  
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  
@@ -51,7 +51,7 @@
           <strong>Warning!</strong> Incorrect Year Released Range. Must be between 1901 and 2155
         </div>
 
-        <input type="text" class="form-control" name="year_released" placeholder="Year Released">
+        <input type="text" class="form-control butt" name="year_released" placeholder="Year Released">
         
         <label for="name">Rating</label>
         <div>

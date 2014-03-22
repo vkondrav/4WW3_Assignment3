@@ -10,8 +10,8 @@
 
 	while($row = mysqli_fetch_array($result))
 	  {
-	  	$id = $row["ACTOR_ID"];
-	  	$n = $row["FIRST_NAME"] . " " . $row["LAST_NAME"];
+	  	$id = $row["actor_id"];
+	  	$n = $row["first_name"] . " " . $row["last_name"];
 	  	echo '<option id ="textForm" value = ' . $id . '>'. $n . '</option>';	  	
 	  }
 

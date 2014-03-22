@@ -25,28 +25,34 @@
 
 	$movieID = mysqli_insert_id($con);
 
-	for ($i = 0; $i < $length; $i++)
+	if ($actorArray[0] != "NULL")
 	{
-		$sql="INSERT INTO role (actor_id, type, movie_id, character_name)
-		VALUES
-		(" . $actorArray[$i] . ", '" . $rolesArray[$i] . "' ," . $movieID . ", '" . $characterArray[$i] . "')";
+		for ($i = 0; $i < $length; $i++)
+		{
+			$sql="INSERT INTO role (actor_id, type, movie_id, character_name)
+			VALUES
+			(" . $actorArray[$i] . ", '" . $rolesArray[$i] . "' ," . $movieID . ", '" . $characterArray[$i] . "')";
 
-		if (!mysqli_query($con,$sql))
-		  {
-		  die('Error: ' . mysqli_error($con));
-		  }
+			if (!mysqli_query($con,$sql))
+			  {
+			  die('Error: ' . mysqli_error($con));
+			  }
+		}
 	}
 
-	for ($i = 0; $i < $glength; $i++)
+	if($genreArray[0] != "NULL")
 	{
-		$sql="INSERT INTO whatgenres (movie_id, genre_name)
-		VALUES
-		(" . $movieID . ", '" . $genreArray[$i] . "')";
+		for ($i = 0; $i < $glength; $i++)
+		{
+			$sql="INSERT INTO whatgenres (movie_id, genre_name)
+			VALUES
+			(" . $movieID . ", '" . $genreArray[$i] . "')";
 
-		if (!mysqli_query($con,$sql))
-		  {
-		  die('Error: ' . mysqli_error($con));
-		  }
+			if (!mysqli_query($con,$sql))
+			  {
+			  die('Error: ' . mysqli_error($con));
+			  }
+		}
 	}
 
 	echo "1 record added as ID = " . $movieID;

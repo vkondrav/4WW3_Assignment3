@@ -63,7 +63,7 @@ create table hasaward(
      award_id int not null,
      movie_id int,
      year_received year not null,
-     primary key(award_id, year_received),
+     primary key(actor_id, award_id, movie_id),
      foreign key(actor_id) references actor,
      foreign key(award_id) references award
 );
