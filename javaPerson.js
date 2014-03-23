@@ -3,25 +3,49 @@ var awardNum = 0;
 
 $(document).ready(function(){
 
+    var movieHash;
+    var awardHash;
+  
+    getPHPlist("getPersonsTable.php", "#table", 0);
+
+    $("#addTable").click(function(){
+        
+        if (!$('#appendTable').is(':visible'))
+        {
+            $("#appendTable").slideDown('400');
+        }
+        else
+        {
+            $("#appendTable").slideUp('400');
+        }
+    });
+
      $("#addMovie").click(function(){
+        movieHash = "#m" + movieNum;
         $("#appendMovie").append("<div id= 'm" + movieNum + "' style='display: none'></div>");
-        $("#m" + movieNum).append('<fieldset><label>Movie Title</label><select id = "movie'+ movieNum + '" class="form-control myList"></select></fieldset>');        
-        getMovies(movieNum);
-        $("#m" + movieNum).append('<fieldset><label>Role</label><select id = "roles'+ movieNum + '" class="form-control myList"></select></fieldset>');
-        getRoles(movieNum);
-        $("#m" + movieNum).append('<input type="text" id = "charName'+ movieNum + '" class="form-control butt" placeholder="Character Name (optional)"></input>');
-        $("#m" + movieNum).slideDown('400');
+        $(movieHash).append('<fieldset><label>Movie Title</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#m' + movieNum + '")></button><select id = "movie'+ movieNum + '" class="form-control myList"></select></fieldset>');        
+        getPHPlist("getMovies.php", "#movie", movieNum);
+        //getMovies(movieNum);
+        $(movieHash).append('<fieldset><label>Role</label><select id = "roles'+ movieNum + '" class="form-control myList"></select></fieldset>');
+        getPHPlist("getRoles.php", "#roles", movieNum)
+        //getRoles(movieNum);
+        $(movieHash).append('<input type="text" id = "charName'+ movieNum + '" class="form-control butt" placeholder="Character Name (optional)"></input>');
+        $(movieHash).slideDown('400');
         movieNum += 1;
     });
 
     $("#addAward").click(function(){
+        awardHash = "#a" + awardNum;
+
         $("#appendAward").append("<div id= 'a" + awardNum + "' style='display: none'></div>");
-        $("#a" + awardNum).append('<fieldset><label>Award</label><select id = "award'+ awardNum + '" class="form-control myList"></select></fieldset>');
-        getAward(awardNum);
-        $("#a" + awardNum).append('<fieldset><label>Awarded for Movie</label><select id = "award_movie'+ awardNum + '" class="form-control myList"></select></fieldset>');        
-        getAward_Movies(awardNum);
-        $("#a" + movieNum).append('<input type="text" id = "year_received'+ awardNum + '" class="form-control butt" placeholder="Year Received"></input>');
-        $("#a" + awardNum).slideDown('400');
+        $(awardHash).append('<fieldset><label>Award</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#a' + awardNum + '")></button><select id = "award'+ awardNum + '" class="form-control myList"></select></fieldset>');
+        getPHPlist("getAward.php", "#award", awardNum);
+        //getAward(awardNum);
+        $(awardHash).append('<fieldset><label>Awarded for Movie</label><select id = "award_movie'+ awardNum + '" class="form-control myList"></select></fieldset>');        
+        getPHPlist("getMovies.php", "#award_movie", awardNum);
+        //getAward_Movies(awardNum);
+        $(awardHash).append('<input type="text" id = "year_received'+ awardNum + '" class="form-control butt" placeholder="Year Received"></input>');
+        $(awardHash).slideDown('400');
         awardNum += 1;
     });
 
@@ -95,18 +119,27 @@ $(document).ready(function(){
     else
         $("#incorrectRangeAlert").slideUp('400');
 
+    ii = 0
     for(i = 0; i < movieNum; i++)
     {
-        movieArray[i] = $("#movie" + i).val();
-        rolesArray[i] = $("#roles" + i).val();
-        characterArray[i] = $("#charName" + i).val();
+        if($("#movie" + i).length)
+        {
+            movieArray[ii] = $("#movie" + i).val();
+            rolesArray[ii] = $("#roles" + i).val();
+            characterArray[ii] = $("#charName" + i).val();
+            ii++
+        }
     }
 
+    ii = 0;
     for(i = 0; i < awardNum; i++)
     {
-        awardArray[i] = $("#award" + i).val();
-        award_movieArray[i] = $("#award_movie" + i).val();
-        year_receivedArray[i] = $("#year_received" + i).val();
+        if($("#award" + i).length)
+        {
+            awardArray[i] = $("#award" + i).val();
+            award_movieArray[i] = $("#award_movie" + i).val();
+            year_receivedArray[i] = $("#year_received" + i).val();
+        }
     }
 
     var request = $.ajax({
@@ -126,78 +159,34 @@ $(document).ready(function(){
         },
         success: function(data)
         {
-           //$("#appendSuccess").append('<label>' + data + '</label><br>'); 
+           clearAll(); 
            $("#success").html(data);
            $("#successAlert").slideDown('400');
+        },
+        error: function(data)
+        { 
+           $("#failure").html(data);
+           $("#failureAlert").slideDown('400');
         }
     });        
-  });  
+  }); 
 });
 
-function getMovies(movieNum) {
+function clearAll()
+{
+    $("input[name='firstname']").val("");
+    $("input[name='middlename'").val("");
+    $("input[name=lastname]").val("");
+    $("input[name=birthdate]").val("");
 
-    var request = $.ajax({
-        url: "getMovies.php",
-        type: "GET",            
-        dataType: "html"
-    });
+    for(i=0; i < movieNum; i++)
+    {
+        $("#m" + i).remove();
+    }
 
-    request.done(function(msg) {
-        $("#movie" + movieNum).append(msg);          
-    });
+    for(i=0; i < awardNum; i++)
+    {
+        $("#a" + i).remove();
+    }
 
-    request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
-}
-
-function getAward_Movies(movieNum) {
-
-    var request = $.ajax({
-        url: "getMovies.php",
-        type: "GET",            
-        dataType: "html"
-    });
-
-    request.done(function(msg) {
-        $("#award_movie" + movieNum).append(msg);          
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
-}
-
-function getRoles(actorNum) {
-
-    var request = $.ajax({
-        url: "getRoles.php",
-        type: "GET",            
-        dataType: "html"
-    });
-
-    request.done(function(msg) {
-        $("#roles" + actorNum).append(msg);          
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
-}
-
-function getAward(awardNum) {
-
-    var request = $.ajax({
-        url: "getAward.php",
-        type: "GET",            
-        dataType: "html"
-    });
-
-    request.done(function(msg) {
-        $("#award" + awardNum).append(msg);          
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        alert( "Request failed: " + textStatus );
-    });
 }

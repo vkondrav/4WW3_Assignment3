@@ -2,9 +2,28 @@ var actorNum = 0;
 var genreNum = 0;
 var reviewNum = 1;
 
-$("#movie").ready(function(){
+var movieNum = 0;
+var awardNum = 0;
+
+$(document).ready(function(){
+
     var actorHash;
     var genreHash;
+
+    //$("#appendTable").append("<table class='table' id='table0'></table>");  
+    getPHPlist("getMoviesTable.php", "#table", 0);
+
+    $("#addTable").click(function(){
+        
+        if (!$('#appendTable').is(':visible'))
+        {
+            $("#appendTable").slideDown('400');
+        }
+        else
+        {
+            $("#appendTable").slideUp('400');
+        }
+    });
 
      $("#addPerson").click(function(){
         actorHash = "#a" + actorNum;
@@ -152,7 +171,7 @@ $("#movie").ready(function(){
            clearAll(); 
            $("#success").html(data);
            $("#successAlert").slideDown('400');
-        }
+        },
         error: function(data)
         { 
            $("#failure").html(data);
@@ -161,50 +180,3 @@ $("#movie").ready(function(){
     });        
   });  
 });
-
-function clearAll()
-{
-    $("input[name='title']").val("")
-    $("textarea[name='description'").val("");
-    $("input[name=year_released]").val("");
-    $("textarea[name=review]").val("");
-
-    for(i = 0; i < actorNum; i++)
-    {
-        $("#a" + i).remove();
-    }
-
-    for(i=0; i < genreNum; i++)
-    {
-        $("#g" + i).remove();
-    }
-
-    $("#r").remove();
-}
-
-function closeDiv(tag){
-    $(tag).remove();
-
-    if (tag == "#r") 
-    {
-        reviewNum ++;
-    }
-}
-
-function getPHPlist(url, hash, num){
-
-    var request = $.ajax({
-        url: url,
-        type: "GET",            
-        dataType: "html"
-    });
-
-    request.done(function(msg) {
-        $(hash + num).append(msg);          
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        $("#failure").html("Request failed: " + textStatus);
-        $("#failureAlert").slideDown('400');
-    });
-}

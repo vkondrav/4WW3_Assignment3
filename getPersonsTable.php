@@ -1,5 +1,4 @@
 <?php
-
 	$con=mysqli_connect("127.0.0.1","root","","4ww3movie");
 	// Check connection
 	if (mysqli_connect_errno())
@@ -13,9 +12,8 @@
 	  {
 	  	$id = $row["actor_id"];
 	  	$n = $row["first_name"] . " " . $row["last_name"];
-	  	echo '<option id ="textForm" value = ' . $id . '>'. $n . '</option>';	  	
+	  	echo '<tr><td>' . $id . '</td><td>'. $n . '</td></tr>';	  	
 	  }
 
 	mysqli_close($con);
-
 ?>
