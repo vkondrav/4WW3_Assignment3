@@ -31,23 +31,24 @@ create table actor(
      check (date_of_birth <= curdate())
 );
 
-create table reviewer(
-     reviewer_id int not null auto_increment,
+create table user(
+     user_id int not null,
      first_name varchar(20) not null,
      middle_name varchar(20),
      last_name varchar(20) not null,
      email_address varchar(20),
-     primary key(reviewer_id) 
+     password varchar(20),
+     primary key(user_id) 
 );
 
 create table review(
      movie_id int not null,
-     reviewer_id int not null,
+     user_id int not null,
      comments text,
      rating tinyint(1),
-     primary key(movie_id, reviewer_id),
+     primary key(movie_id, user_id),
      foreign key(movie_id) references movie,
-     foreign key(reviewer_id) references reviewer,
+     foreign key(user_id) references user,
      check(rating >= 0 and rating <= 5)
 );
 

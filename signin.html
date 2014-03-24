@@ -16,14 +16,6 @@
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -31,20 +23,23 @@
     <div class="container">
 
       <form class="form-signin" role="form">
+
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="username" class="form-control" placeholder="Username" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <div id="failureAlert" class="alert alert-danger butt" style="display: none">   
+          <strong>Warning!</strong><a id="failure"></a>
+        </div>
+
+        <input id="user_id" type="username" class="form-control" placeholder="Username" autofocus>
+        <input id="password" type="password" class="form-control" placeholder="Password">
+        <button class="btn btn-lg btn-primary btn-block butt" id="signIn">Sign in</button>
       </form>
 
     </div> <!-- /container -->
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script type="text/javascript" src="generalFunctions.js"></script>
+  <script type="text/javascript" src="javaSignIn.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

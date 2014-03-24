@@ -80,11 +80,9 @@ role(actor_id,type,movie_id,character_name) values
 (@jonah, "supporting actor", @wolf_on_wall_street, 'Donnie Azoff');
 
 insert into
-reviewer(first_name, last_name, email_address) values
-('Steven','Jones','sjones@gmail.com');
-
-set @jones = last_insert_id();
+user(user_id, first_name, last_name, email_address, password) values
+('kondrav', 'Vitaliy','Kondratiev', 'kondrav@live.com', "password");
 
 insert into
-review(movie_id,reviewer_id,comments,rating) values
-(@wolf_on_wall_street, @jones,'It was very good', 5);
+review(movie_id,user_id,comments,rating) values
+(@wolf_on_wall_street, 'kondrav','It was very good', 5);
