@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Search</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Movie Database</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="movie.html">Movie</a></li>
+              <li><a href="person.html">Person</a></li>
+              <li><a href="award.html">Award</a></li>
+              <li class="active"><a>Search</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+      
+     
+      <form class="form-signin" role="form">
+
+        <h2 class="form-signin-heading">Search Database</h2>
+        
+        <input type="text" class="form-control butt" name="searchTerm" placeholder="Search" autofocus>
+
+        <div id="results" style='display: none'>
+          <h3 class="form-signin-heading">Movies</h2>
+          <table class='table' id= 'movie_results'></table>
+          <h3 class="form-signin-heading">Persons</h2>
+          <table class='table' id= 'person_results'></table>
+          <h3 class="form-signin-heading">Awards</h2>
+          <table class='table' id= 'award_results'></table>
+          <h3 class="form-signin-heading">Roles</h2>
+          <table class='table' id= 'role_results'></table>
+          <h3 class="form-signin-heading">Has Award</h2>
+          <table class='table' id= 'hasward_results'></table>
+          <h3 class="form-signin-heading">Reviews</h2>
+          <table class='table' id= 'reviews_results'></table>
+        </div>
+        
+        <div id="failureAlert" class="alert alert-danger butt" style="display: none">   
+          <strong>Warning!</strong><a id="failure"></a>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block butt" type="button" id="showResults">Show Results</button>
+
+      </form>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="generalFunctions.js"></script>
+    <script type="text/javascript" src="javaSearch.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

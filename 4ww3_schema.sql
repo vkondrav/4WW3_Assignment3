@@ -32,7 +32,7 @@ create table actor(
 );
 
 create table user(
-     user_id int not null,
+     user_id varchar(20) not null,
      first_name varchar(20) not null,
      middle_name varchar(20),
      last_name varchar(20) not null,
@@ -43,7 +43,7 @@ create table user(
 
 create table review(
      movie_id int not null,
-     user_id int not null,
+     user_id varchar(20) not null,
      comments text,
      rating tinyint(1),
      primary key(movie_id, user_id),
@@ -85,3 +85,8 @@ create table role(
      foreign key(movie_id) references movie
 );
 
+create view movie_actor as select movie.title, role.character_name, role.type, actor.first_name, actor.last_name from movie join role on movie.movie_id = role.movie_id join actor on role.actor_id = actor.actor_id;
+
+create view actor_movie_award as select actor.first_name, actor.last_name, movie.title, award.name, award.reason from actor join hasaward on actor.actor_id = hasaward.actor_id join movie on movie.movie_id = hasaward.movie_id join award on award.award_id = hasaward.award_id;
+
+create view movie_review as select movie.title, user.user_id, review.comments from movie join review on movie.movie_id = review.movie_id join user on user.user_id = review.user_id;

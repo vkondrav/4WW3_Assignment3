@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$con=mysqli_connect("127.0.0.1","root","","4ww3movie");
 	// Check connection
 	if (mysqli_connect_errno())
@@ -13,6 +14,8 @@
 
 	$genreArray = $_REQUEST['genreArray'];
 	$glength = count($genreArray);
+
+	$review = $_REQUEST['review'];
 
 	$sql="INSERT INTO Movie (title, description, year_released, rating)
 	VALUES
@@ -53,6 +56,18 @@
 			  die('Error: ' . mysqli_error($con));
 			  }
 		}
+	}
+
+	if($review != "NULL")
+	{
+		$sql="INSERT INTO review (movie_id, user_id, comments)
+		VALUES 
+		(" . $movieID . ", '" . $_SESSION['user_id'] . "', '" . $review . "')";
+
+		if (!mysqli_query($con,$sql))
+			  {
+			  die('Error: ' . mysqli_error($con));
+			  }
 	}
 
 	echo "1 record added as ID = " . $movieID;

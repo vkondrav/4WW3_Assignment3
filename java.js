@@ -73,7 +73,7 @@ $(document).ready(function(){
     var title;
     var description;
     var year_released;
-    var review;
+    var review = "NULL";
 
     var reg = new RegExp(/^[0-9]*$/);
 
@@ -164,7 +164,8 @@ $(document).ready(function(){
             actorArray: actorArray,
             rolesArray: rolesArray,
             characterArray: characterArray,
-            genreArray: genreArray
+            genreArray: genreArray,
+            review: review
         },
         success: function(data)
         {
@@ -180,3 +181,22 @@ $(document).ready(function(){
     });        
   });  
 });
+
+function clearAll()
+{
+    $("input[name='title']").val("");
+    $("textarea[name='description'").val("");
+    $("input[name=year_released]").val("");
+    $("textarea[name=review]").val("");
+
+    for(i=0; i < actorNum; i++)
+    {
+        $("#a" + i).remove();
+    }
+
+    for(i=0; i < genreNum; i++)
+    {
+        $("#g" + i).remove();
+    }
+
+}
