@@ -10,7 +10,8 @@ create table movie(
      year_released year,
      rating tinyint(1),
      primary key(movie_id),
-     check(rating >= 0 and rating <= 5)
+     check(rating >= 0 and rating <= 5),
+     constraint u_id unique (title,year_released)
 );
 
 create table whatgenres(
@@ -28,7 +29,8 @@ create table actor(
      last_name varchar(20) not null,
      date_of_birth date,
      primary key(actor_id),
-     check (date_of_birth <= curdate())
+     check (date_of_birth <= curdate()),
+     constraint u_id unique (first_name,last_name,date_of_birth)
 );
 
 create table user(
@@ -56,7 +58,8 @@ create table award(
      award_id int not null auto_increment,
      name varchar(20) not null,
      reason varchar(20) not null,
-     primary key(award_id)
+     primary key(award_id),
+     constraint u_id unique(name, reason)
 );
 
 create table hasaward(
