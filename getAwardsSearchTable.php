@@ -14,7 +14,7 @@
 	  {
 	  	$name = $row["name"];
 	  	$reason = $row["reason"];
-	  	echo '<tr><td>' . $name . '</td><td>' . $reason . '</td></tr>';	  	
+	  	echo '<tr><th>Name</th><th>Reason</th></tr><tr><td>' . $name . '</td><td>' . $reason . '</td></tr>';	  	
 	  }
 
 	mysqli_close($con);

@@ -10,6 +10,7 @@
 
 	$result = mysqli_query($con,"SELECT * FROM movie where title LIKE '%" . $searchTerm . "%' OR description LIKE '%" . $searchTerm . "%' OR year_released LIKE '%" . $searchTerm . "%'");
 
+	echo '<tr><th>Title</th><th>Description</th><th>Year Released</th></tr>';
 	while($row = mysqli_fetch_array($result))
 	  {
 	  	$title = $row["title"];

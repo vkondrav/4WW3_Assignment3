@@ -10,12 +10,13 @@
 
 	$result = mysqli_query($con,"SELECT * FROM movie_review where title LIKE '%" . $searchTerm . "%' OR user_id LIKE '%" . $searchTerm . "%' OR comments LIKE '%" . $searchTerm . "%'");
 
+	echo '<tr><th>Movie Title</th><th>User ID</th><th>Comments</th></tr>';
 	while($row = mysqli_fetch_array($result))
 	  {
 	  	$title = $row["title"];
 	  	$user_id = $row["user_id"];
 	  	$comments = $row["comments"];
-	  	echo '<tr><td>' . $title . '</td><td>' . $user_id . '</td><td>' . $comments . '<td></tr>';	  	
+	  	echo '<tr><td>' . $title . '</td><td>' . $user_id . '</td><td>' . $comments . '</td></tr>';	  	
 	  }
 
 	mysqli_close($con);

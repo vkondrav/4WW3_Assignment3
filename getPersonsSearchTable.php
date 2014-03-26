@@ -10,6 +10,7 @@
 
 	$result = mysqli_query($con,"SELECT * FROM actor where first_name LIKE '%" . $searchTerm . "%' OR middle_name LIKE '%" . $searchTerm . "%' OR last_name LIKE '%" . $searchTerm . "%' OR date_of_birth LIKE '%" . $searchTerm . "%'");
 
+	echo '<tr><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Birth Date</th></tr>';
 	while($row = mysqli_fetch_array($result))
 	  {
 	  	$first_name = $row["first_name"];
