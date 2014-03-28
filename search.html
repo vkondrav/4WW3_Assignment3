@@ -31,7 +31,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Movie Database</a>
+            <a class="navbar-brand">Movie Database</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,8 +50,51 @@
       <form class="form-signin" role="form">
 
         <h2 class="form-signin-heading">Search Database</h2>
-        
-        <input type="text" class="form-control butt" name="searchTerm" placeholder="Search" autofocus>
+
+        <div id="advancedHints" style='display: none'>
+          <table class='table table-bordered'>
+            <tr>
+              <th colspan="2">Syntax</th>
+            </tr>
+            <tr>
+              <td>movieTitle:value</td><td>movieYear:value</td><td></td>
+            </tr>
+            <tr>
+              <td>movieDescription:value</td><td>genreName:value</td>
+            </tr>
+            <tr>
+              <td>actorFirstName:value</td><td>actorMiddleName:value</td>
+            </tr>
+            <tr>
+              <td>actorLastName:value</td><td>actorBirthday:value</td>
+            </tr>
+            <tr>
+              <td>awardName:value</td><td>awardReason:value</td>
+            </tr>
+            <tr>
+              <td>awardYear:value</td><td>user_id:value</td>
+            </tr>
+            <tr>
+              <td>comments:value</td>
+            </tr>
+          </table>
+        </div>
+
+        <div>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <label>Advanced Search</label>
+              <input type="checkbox" name="advancedSearch">
+            </span>
+            <input type="text" class="form-control" name="searchTerm" placeholder="Search" autofocus>
+          </div>
+        </div>
+
+        <div id="failureAlert" class="alert alert-danger butt" style="display: none">   
+          <strong>Warning!</strong><a id="failure"></a>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block butt" type="button" id="showResults">Show Results</button>
 
         <div id="results" style='display: none'>
           <h3 class="form-signin-heading">Movies</h2>
@@ -67,12 +110,6 @@
           <h3 class="form-signin-heading">Reviews</h2>
           <table class='table table-bordered' id= 'review_results'></table>
         </div>
-        
-        <div id="failureAlert" class="alert alert-danger butt" style="display: none">   
-          <strong>Warning!</strong><a id="failure"></a>
-        </div>
-
-        <button class="btn btn-lg btn-primary btn-block butt" type="button" id="showResults">Show Results</button>
 
       </form>
     </div>

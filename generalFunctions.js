@@ -1,12 +1,17 @@
 function closeDiv(tag){
     
-    $(tag).slideUp(400, function() {
-        $(tag).remove();
-    });
+    tag = tag.split(',');
 
-    if (tag == "#r") 
+    for(i = 0; i < tag.length; i++)
     {
-        reviewNum ++;
+        $(tag[i]).slideUp(400, function() {
+            $(tag[i]).remove();
+        });
+
+        if (tag[i] == "#r") 
+        {
+            reviewNum ++;
+        }
     }
 }
 

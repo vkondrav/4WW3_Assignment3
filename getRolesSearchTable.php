@@ -6,10 +6,34 @@
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	  }
 
-	$searchTerm = $_REQUEST["searchTerm"];
+	$type = $_REQUEST["type"];
 
-	$result = mysqli_query($con,"SELECT * FROM movie_actor where title LIKE '%" . $searchTerm . "%' OR character_name LIKE '%" . $searchTerm . "%' OR type LIKE '%" . $searchTerm . "%' OR first_name LIKE '%" . $searchTerm . "%' OR last_name LIKE '%" . $searchTerm . "%'");
+	if ($type == "true")
+	{
+		$movieTitle = $_REQUEST["movieTitle"];
+		$first_name = $_REQUEST["actorFirstName"];
+		$last_name = $_REQUEST["actorLastName"];
+		$character_name = $_REQUEST["characterName"];
+		$roleType = $_REQUEST["roleType"];
+		
+		if($movieTitle == "" and $first_name == "" and $last_name == "" and $character_name == "" and $roleType == "")
+		{
+			$result = NULL;
+		}
+		else
+		{
+			$result = mysqli_query($con,"SELECT * FROM movie_actor where title LIKE '%" . $movieTitle . "%' AND character_name LIKE '%" . $character_name . "%' AND type LIKE '%" . $roleType . "%' AND first_name LIKE '%" . $first_name . "%' AND last_name LIKE '%" . $last_name . "%'");
+		}
+		
+	}
+	else
+	{
+		$searchTerm = $_REQUEST["searchTerm"];
 
+		$result = mysqli_query($con,"SELECT * FROM movie_actor where title LIKE '%" . $searchTerm . "%' OR character_name LIKE '%" . $searchTerm . "%' OR type LIKE '%" . $searchTerm . "%' OR first_name LIKE '%" . $searchTerm . "%' OR last_name LIKE '%" . $searchTerm . "%'");
+	}
+
+	echo '<tr><th>Movie Title</th><th>Character Name</th><th>Role Type</th><th>First Name</th><th>Last Name</th></tr>';
 	while($row = mysqli_fetch_array($result))
 	  {
 	  	$title = $row["title"];
