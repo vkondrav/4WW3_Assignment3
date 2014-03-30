@@ -80,7 +80,14 @@ $(document).ready(function(){
     title = $("input[name='title']").val();
     description = $("textarea[name='description'").val();
     year_released = $("input[name=year_released]").val();
-    review = $("textarea[name=review]").val();
+
+    if (reviewNum == 0)
+    {
+        if($("textarea[name=review]").val() != "")
+        {
+            review = $("textarea[name=review]").val();
+        }
+    }
 
     if (title == "")
     {   

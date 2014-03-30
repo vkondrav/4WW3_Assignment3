@@ -20,7 +20,7 @@ var reviewNum = 1;
 
 $(document).ready(function(){
 
-  $(document).keypress(function(e) {
+  $(document).keyup(function(e) {
     if(e.which == 13) {
         showResults();
     }
@@ -42,7 +42,7 @@ $(document).ready(function(){
   }); 
 
   $("#movie_results").on("click", "button[name='review']", function(){
-    id = $("button[name='review']").attr('id');
+    id = $(this).attr('id');
 
     if(reviewNum == 1)
     {
@@ -67,6 +67,8 @@ $(document).ready(function(){
     });
 
     request.done(function(msg) {
+        $("#success").html(" Request Processed:" + msg);
+        $("#successAlert").slideDown('400');
         closeDiv("#r,#sendr");          
     });
 
