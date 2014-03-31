@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     var movieHash;
 
-    getPHPlist("getAwardTable.php", "#table", 0);
+    getPHPlist("getAwardTablephp", "#table", 0);
 
     $("#addTable").click(function(){
         
@@ -25,11 +25,11 @@ $(document).ready(function(){
         $("#appendPersonMovie").append("<div id= 'm" + movieNum + "' style='display: none'></div>");
 
         $(movieHash).append('<fieldset><label>Person</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#m' + movieNum + '")></button><select id = "persons'+ movieNum + '" class="form-control myList"></select></fieldset>');        
-        getPHPlist("getPersons.php", "#persons", movieNum);
+        getPHPlist("getPersonsphp", "#persons", movieNum);
 
         $(movieHash).append("<div id= 'm" + movieNum + "' style='display: none'></div>");
         $(movieHash).append('<fieldset><label>Movie Title</label><select id = "movie'+ movieNum + '" class="form-control myList"></select></fieldset>');        
-        getPHPlist("getMovies.php", "#movie", movieNum);
+        getPHPlist("getMoviesphp", "#movie", movieNum);
         
         $(movieHash).append('<input type="text" id = "year_received'+ movieNum + '" class="form-control butt" placeholder="Year Received"></input>');
         
@@ -79,10 +79,16 @@ $(document).ready(function(){
         }
     }
 
+    for(i = 0; i < personsArray.length; i++)
+        {
+            alert(personsArray[i]);
+        }
     var request = $.ajax({
-        url: "award.php",
+
+        url: "main_server.php",
         type: "POST",            
         data:{
+            funct: "awardphp",
             name: name,
             reason: reason,
             movieArray: movieArray,
@@ -114,30 +120,4 @@ function clearAll()
         $("#m" + i).remove();
     }
 
-}
-
-function closeDiv(tag){
-    
-    $(tag).slideUp(400, function() {
-        $(tag).remove();
-    });
-
-}
-
-function getPHPlist(url, hash, num){
-
-    var request = $.ajax({
-        url: url,
-        type: "GET",            
-        dataType: "html"
-    });
-
-    request.done(function(msg) {
-        $(hash + num).append(msg);          
-    });
-
-    request.fail(function(jqXHR, textStatus) {
-        $("#failure").html("Request failed: " + textStatus);
-        $("#failureAlert").slideDown('400');
-    });
 }

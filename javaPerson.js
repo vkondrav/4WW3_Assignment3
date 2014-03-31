@@ -6,7 +6,7 @@ $(document).ready(function(){
     var movieHash;
     var awardHash;
   
-    getPHPlist("getPersonsTable.php", "#table", 0);
+    getPHPlist("getPersonsTablephp", "#table", 0);
 
     $("#addTable").click(function(){
         
@@ -24,11 +24,9 @@ $(document).ready(function(){
         movieHash = "#m" + movieNum;
         $("#appendMovie").append("<div id= 'm" + movieNum + "' style='display: none'></div>");
         $(movieHash).append('<fieldset><label>Movie Title</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#m' + movieNum + '")></button><select id = "movie'+ movieNum + '" class="form-control myList"></select></fieldset>');        
-        getPHPlist("getMovies.php", "#movie", movieNum);
-        //getMovies(movieNum);
+        getPHPlist("getMoviesphp", "#movie", movieNum);
         $(movieHash).append('<fieldset><label>Role</label><select id = "roles'+ movieNum + '" class="form-control myList"></select></fieldset>');
-        getPHPlist("getRoles.php", "#roles", movieNum)
-        //getRoles(movieNum);
+        getPHPlist("getRolesphp", "#roles", movieNum)
         $(movieHash).append('<input type="text" id = "charName'+ movieNum + '" class="form-control butt" placeholder="Character Name (optional)"></input>');
         $(movieHash).slideDown('400');
         movieNum += 1;
@@ -39,11 +37,9 @@ $(document).ready(function(){
 
         $("#appendAward").append("<div id= 'a" + awardNum + "' style='display: none'></div>");
         $(awardHash).append('<fieldset><label>Award</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#a' + awardNum + '")></button><select id = "award'+ awardNum + '" class="form-control myList"></select></fieldset>');
-        getPHPlist("getAward.php", "#award", awardNum);
-        //getAward(awardNum);
+        getPHPlist("getAwardphp", "#award", awardNum);
         $(awardHash).append('<fieldset><label>Awarded for Movie</label><select id = "award_movie'+ awardNum + '" class="form-control myList"></select></fieldset>');        
-        getPHPlist("getMovies.php", "#award_movie", awardNum);
-        //getAward_Movies(awardNum);
+        getPHPlist("getMoviesphp", "#award_movie", awardNum);
         $(awardHash).append('<input type="text" id = "year_received'+ awardNum + '" class="form-control butt" placeholder="Year Received"></input>');
         $(awardHash).slideDown('400');
         awardNum += 1;
@@ -143,9 +139,10 @@ $(document).ready(function(){
     }
 
     var request = $.ajax({
-        url: "person.php",
+        url: "main_server.php",
         type: "POST",            
         data:{
+            funct: "personphp", 
             firstname: firstname,
             middlename: middlename,
             lastname: lastname,

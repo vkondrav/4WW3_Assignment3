@@ -57,10 +57,11 @@ $(document).ready(function(){
      review = $("textarea[name='review']").val();
 
      var request = $.ajax({
-        url: "movieReview.php",
+        url: "main_server.php",
         type: "POST",
         datatype: "html",
         data:{
+            funct: "movieReviewphp",
             movie_id: id,
             review: review
         }
@@ -125,12 +126,12 @@ function showResults()
           $("#hasaward_results").html("");
           $("#review_results").html("");
 
-         getPHPSearchlist("getMoviesSearchTable.php", "#movie_results", searchTerm);
-         getPHPSearchlist("getPersonsSearchTable.php", "#person_results", searchTerm);
-         getPHPSearchlist("getAwardsSearchTable.php", "#award_results", searchTerm); 
-         getPHPSearchlist("getRolesSearchTable.php", "#role_results", searchTerm); 
-         getPHPSearchlist("getHasAwardSearchTable.php", "#hasaward_results", searchTerm); 
-         getPHPSearchlist("getReviewSearchTable.php", "#review_results", searchTerm); 
+         getPHPSearchlist("getMoviesSearchTablephp", "#movie_results", searchTerm);
+         getPHPSearchlist("getPersonsSearchTablephp", "#person_results", searchTerm);
+         getPHPSearchlist("getAwardsSearchTablephp", "#award_results", searchTerm); 
+         getPHPSearchlist("getRolesSearchTablephp", "#role_results", searchTerm); 
+         getPHPSearchlist("getHasAwardSearchTablephp", "#hasaward_results", searchTerm); 
+         getPHPSearchlist("getReviewSearchTablephp", "#review_results", searchTerm); 
       });
 
        $("#results").slideDown('400');
@@ -145,10 +146,11 @@ function showResults()
 
 function getPHPSearchlist(url, hash, searchTerm){
     var request = $.ajax({
-        url: url,
+        url: "main_server.php",
         type: "POST",
         datatype: "html",
         data:{
+            funct: url,
             searchTerm: searchTerm,
             type: type,
             movieTitle: movieTitle,

@@ -9,6 +9,7 @@ $(document).ready(function(){
         url: "signIn.php",
         type: "POST",            
         data:{
+            funct: "signInphp",
             user_id: user_id,
             password: password
         },

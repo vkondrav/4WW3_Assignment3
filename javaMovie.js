@@ -11,7 +11,7 @@ $(document).ready(function(){
     var genreHash;
 
     //$("#appendTable").append("<table class='table' id='table0'></table>");  
-    getPHPlist("getMoviesTable.php", "#table", 0);
+    getPHPlist("getMoviesTablephp", "#table", 0);
 
     $("#addTable").click(function(){
         
@@ -31,10 +31,10 @@ $(document).ready(function(){
         $("#appendPerson").append("<div id= 'a" + actorNum + "' style='display: none'></div>");  
 
         $(actorHash).append('<fieldset><label>Person</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#a' + actorNum + '")></button><select id = "persons'+ actorNum + '" class="form-control myList"></select></fieldset>');        
-        getPHPlist("getPersons.php", "#persons", actorNum);
+        getPHPlist("getPersonsphp", "#persons", actorNum);
 
         $(actorHash).append('<fieldset><label>Responsibility</label><select id = "roles'+ actorNum + '" class="form-control myList"></select></fieldset>');
-        getPHPlist("getRoles.php", "#roles", actorNum);
+        getPHPlist("getRolesphp", "#roles", actorNum);
 
         $(actorHash).append('<input type="text" id = "charName'+ actorNum + '" class="form-control" placeholder="Character Name (optional)"></input>');
         $(actorHash).slideDown('400');
@@ -47,7 +47,7 @@ $(document).ready(function(){
         $("#appendGenre").append("<div id= 'g" + genreNum + "' style='display: none'></div>");
 
         $(genreHash).append('<fieldset><label>Genre</label><button type="button" class="close pull-right glyphicon glyphicon-remove-circle" onclick=closeDiv("#g' + genreNum + '")></button><select id = "genre'+ genreNum + '" class="form-control myList"></select></fieldset>');
-        getPHPlist("getGenre.php", "#genre", genreNum);
+        getPHPlist("getGenrephp", "#genre", genreNum);
         $(genreHash).slideDown('400');
         genreNum += 1;
     });
@@ -161,9 +161,10 @@ $(document).ready(function(){
     }
 
     var request = $.ajax({
-        url: "movie.php",
+        url: "main_server.php",
         type: "POST",            
         data:{
+            funct: "moviephp",
             title: title,
             description: description,
             year_released: year_released,

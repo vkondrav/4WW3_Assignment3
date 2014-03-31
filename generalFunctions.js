@@ -18,9 +18,12 @@ function closeDiv(tag){
 function getPHPlist(url, hash, num){
 
     var request = $.ajax({
-        url: url,
+        url: "main_server.php",
         type: "GET",            
-        dataType: "html"
+        dataType: "html",
+        data: {
+            funct: url
+        }
     });
 
     request.done(function(msg) {
