@@ -79,10 +79,6 @@ $(document).ready(function(){
         }
     }
 
-    for(i = 0; i < personsArray.length; i++)
-        {
-            alert(personsArray[i]);
-        }
     var request = $.ajax({
 
         url: "main_server.php",

@@ -9,11 +9,14 @@
 		$genreArray = $_REQUEST['genreArray'];
 		$glength = count($genreArray);
 
-		$review = $_REQUEST['review'];
+		$review = mysqli_real_escape_string($con, $_REQUEST['review']);
+        
+        $title = mysqli_real_escape_string($con, $_REQUEST['title']);
+        $description = mysqli_real_escape_string($con, $_REQUEST['description']);
 
-		$sql="INSERT INTO Movie (title, description, year_released, rating)
+		$sql="INSERT INTO movie (title, description, year_released, rating)
 		VALUES
-		('$_POST[title]','$_POST[description]','$_POST[year_released]','$_POST[rating]')";
+		('" . $title . "', '" . $description . "' ,'$_POST[year_released]','$_POST[rating]')";
 
 		if (!mysqli_query($con,$sql))
 		  {
@@ -26,9 +29,10 @@
 		{
 			for ($i = 0; $i < $length; $i++)
 			{
+                $characterName = mysqli_real_escape_string($con, $characterArray[$i]);
 				$sql="INSERT INTO role (actor_id, type, movie_id, character_name)
 				VALUES
-				(" . $actorArray[$i] . ", '" . $rolesArray[$i] . "' ," . $movieID . ", '" . $characterArray[$i] . "')";
+				(" . $actorArray[$i] . ", '" . $rolesArray[$i] . "' ," . $movieID . ", '" . $characterName . "')";
 
 				if (!mysqli_query($con,$sql))
 				  {
@@ -75,11 +79,11 @@
 
 		if ($type == "true")
 		{
-			$movieTitle = $_REQUEST["movieTitle"];
-			$first_name = $_REQUEST["actorFirstName"];
-			$last_name = $_REQUEST["actorLastName"];
-			$character_name = $_REQUEST["characterName"];
-			$roleType = $_REQUEST["roleType"];
+			$movieTitle = mysqli_real_escape_string($con, $_REQUEST["movieTitle"]);
+			$first_name = mysqli_real_escape_string($con, $_REQUEST["actorFirstName"]);
+			$last_name = mysqli_real_escape_string($con, $_REQUEST["actorLastName"]);
+			$character_name = mysqli_real_escape_string($con, $_REQUEST["characterName"]);
+			$roleType = mysqli_real_escape_string($con, $_REQUEST["roleType"]);
 			
 			if($movieTitle == "" and $first_name == "" and $last_name == "" and $character_name == "" and $roleType == "")
 			{
@@ -93,7 +97,7 @@
 		}
 		else
 		{
-			$searchTerm = $_REQUEST["searchTerm"];
+			$searchTerm = mysqli_real_escape_string($con, $_REQUEST["searchTerm"]);
 
 			$result = mysqli_query($con,"SELECT * FROM movie_actor where title LIKE '%" . $searchTerm . "%' OR character_name LIKE '%" . $searchTerm . "%' OR type LIKE '%" . $searchTerm . "%' OR first_name LIKE '%" . $searchTerm . "%' OR last_name LIKE '%" . $searchTerm . "%'");
 		}
@@ -115,7 +119,7 @@
 	function movieReview($con)
 	{
 		$movie_id = $_REQUEST['movie_id'];
-		$review = $_REQUEST['review'];
+		$review = mysqli_real_escape_string($con, $_REQUEST['review']);
 
 		if($review != "NULL")
 		{
@@ -159,9 +163,10 @@
 		{
 			for ($i = 0; $i < $length; $i++)
 			{
+				$characterName = mysqli_real_escape_string($con, $characterArray[$i]);
 				$sql="INSERT INTO role (actor_id, type, movie_id, character_name)
 				VALUES
-				(" . $actorID . ", '" . $rolesArray[$i] . "' ," . $movieArray[$i] . ", '" . $characterArray[$i] . "')";
+				(" . $actorID . ", '" . $rolesArray[$i] . "' ," . $movieArray[$i] . ", '" . $characterName . "')";
 
 				if (!mysqli_query($con,$sql))
 				  {
@@ -193,8 +198,8 @@
 
 	function signIn($con)
 	{
-		$user_id = $_REQUEST['user_id'];
-		$password = $_REQUEST['password'];
+		$user_id = mysqli_real_escape_string($con, $_REQUEST['user_id']);
+		$password = mysqli_real_escape_string($con, $_REQUEST['password']);
 
 		$result = mysqli_query($con,"SELECT * FROM user WHERE user_id = '" . $user_id . "'") or die ("Error in query. " . mysql_error());
 
@@ -345,11 +350,11 @@
 
 		if ($type == "true")
 		{
-			$movieTitle = $_REQUEST["movieTitle"];
-			$first_name = $_REQUEST["actorFirstName"];
-			$last_name = $_REQUEST["actorLastName"];
-			$awardName = $_REQUEST["awardName"];
-			$awardReason = $_REQUEST["awardReason"];
+			$movieTitle = mysqli_real_escape_string($con, $_REQUEST["movieTitle"]);
+			$first_name = mysqli_real_escape_string($con, $_REQUEST["actorFirstName"]);
+			$last_name = mysqli_real_escape_string($con, $_REQUEST["actorLastName"]);
+			$awardName = mysqli_real_escape_string($con, $_REQUEST["awardName"]);
+			$awardReason = mysqli_real_escape_string($con, $_REQUEST["awardReason"]);
 
 			
 			if($movieTitle == "" and $awardName == "" and $awardReason == "" and $first_name == "" and $last_name == "")
@@ -364,7 +369,7 @@
 		}
 		else
 		{
-			$searchTerm = $_REQUEST["searchTerm"];
+			$searchTerm = mysqli_real_escape_string($con, $_REQUEST["searchTerm"]);
 
 			$result = mysqli_query($con,"SELECT * FROM actor_movie_award where title LIKE '%" . $searchTerm . "%' OR first_name LIKE '%" . $searchTerm . "%' OR last_name LIKE '%" . $searchTerm . "%' OR name LIKE '%" . $searchTerm . "%' OR reason LIKE '%" . $searchTerm . "%'");
 		}
@@ -403,9 +408,9 @@
 
 		if ($type == "true")
 		{
-			$movieTitle = $_REQUEST["movieTitle"];
-			$movieYear = $_REQUEST["movieYear"];
-			$movieDescription = $_REQUEST["movieDescription"];
+			$movieTitle = mysqli_real_escape_string($con, $_REQUEST["movieTitle"]);
+			$movieYear = mysqli_real_escape_string($con, $_REQUEST["movieYear"]);
+			$movieDescription = mysqli_real_escape_string($con, $_REQUEST["movieDescription"]);
 
 			
 			if($movieTitle == "" and $movieYear == "" and $movieDescription == "")
@@ -420,7 +425,7 @@
 		}
 		else
 		{
-			$searchTerm = $_REQUEST["searchTerm"];
+			$searchTerm = mysqli_real_escape_string($con, $_REQUEST["searchTerm"]);
 
 			$result = mysqli_query($con,"SELECT * FROM movie where title LIKE '%" . $searchTerm . "%' OR description LIKE '%" . $searchTerm . "%' OR year_released LIKE '%" . $searchTerm . "%'");
 		}
@@ -472,10 +477,10 @@
 
 		if ($type == "true")
 		{
-			$first_name = $_REQUEST["actorFirstName"];
-			$middle_name = $_REQUEST["actorMiddleName"];
-			$last_name = $_REQUEST["actorLastName"];
-			$birth_date = $_REQUEST["actorBirthday"];
+			$first_name = mysqli_real_escape_string($con, $_REQUEST["actorFirstName"]);
+			$middle_name = mysqli_real_escape_string($con, $_REQUEST["actorMiddleName"]);
+			$last_name = mysqli_real_escape_string($con, $_REQUEST["actorLastName"]);
+			$birth_date = mysqli_real_escape_string($con, $_REQUEST["actorBirthday"]);
 			
 			if($first_name == "" and $last_name == "" and $middle_name == "" and $birth_date == "")
 			{
@@ -489,7 +494,7 @@
 		}
 		else
 		{
-			$searchTerm = $_REQUEST["searchTerm"];
+			$searchTerm = mysqli_real_escape_string($con, $_REQUEST["searchTerm"]);
 
 			$result = mysqli_query($con,"SELECT * FROM actor where first_name LIKE '%" . $searchTerm . "%' OR middle_name LIKE '%" . $searchTerm . "%' OR last_name LIKE '%" . $searchTerm . "%' OR date_of_birth LIKE '%" . $searchTerm . "%'");
 		}
@@ -528,9 +533,9 @@
 
 		if ($type == "true")
 		{
-			$movieTitle = $_REQUEST["movieTitle"];
-			$user_id = $_REQUEST["user_id"];
-			$comments = $_REQUEST["comments"];
+			$movieTitle = mysqli_real_escape_string($con, $_REQUEST["movieTitle"]);
+			$user_id = mysqli_real_escape_string($con, $_REQUEST["user_id"]);
+			$comments = mysqli_real_escape_string($con, $_REQUEST["comments"]);
 
 			
 			if($movieTitle == "" and $user_id == "" and $comments == "")
@@ -545,7 +550,7 @@
 		}
 		else
 		{
-			$searchTerm = $_REQUEST["searchTerm"];
+			$searchTerm = mysqli_real_escape_string($con, $_REQUEST["searchTerm"]);
 
 			$result = mysqli_query($con,"SELECT * FROM movie_review where title LIKE '%" . $searchTerm . "%' OR user_id LIKE '%" . $searchTerm . "%' OR comments LIKE '%" . $searchTerm . "%'");
 		}
@@ -577,7 +582,7 @@
 	}
 
 	session_start();
-	$con=mysqli_connect("127.0.0.1","root","","4ww3movie");
+	$con=mysqli_connect("mysqlsrv1.cas.mcmaster.ca","kondrav","kondrav","kondrav");
 	// Check connection
 	if (mysqli_connect_errno())
 	{
