@@ -1,4 +1,9 @@
 <?php
+//File: main_server
+//Author: Vitaliy Kondratiev
+//this file handles all the php calls from various javascript and returns the apropriate content
+
+	//Fucntion: Insert content from creating a movie into the database
 	function movie($con)
 	{
 		$actorArray = $_REQUEST['actorArray'];
@@ -14,6 +19,7 @@
         $title = mysqli_real_escape_string($con, $_REQUEST['title']);
         $description = mysqli_real_escape_string($con, $_REQUEST['description']);
 
+        //insert initial movie data
 		$sql="INSERT INTO movie (title, description, year_released, rating)
 		VALUES
 		('" . $title . "', '" . $description . "' ,'$_POST[year_released]','$_POST[rating]')";
@@ -25,6 +31,7 @@
 
 		$movieID = mysqli_insert_id($con);
 
+		//if the user specified a list of actors insert them all one by one
 		if ($actorArray[0] != "NULL")
 		{
 			for ($i = 0; $i < $length; $i++)
@@ -41,6 +48,7 @@
 			}
 		}
 
+		//if the user specified a list of genres, insert them one by one
 		if($genreArray[0] != "NULL")
 		{
 			for ($i = 0; $i < $glength; $i++)
@@ -56,6 +64,7 @@
 			}
 		}
 
+		//if the user specified a review, insert it
 		if($review != "NULL")
 		{
 			$sql="INSERT INTO review (movie_id, user_id, comments)
@@ -73,6 +82,8 @@
 		mysqli_close($con);
 	}
 
+	//Search tables echo back an html table of requested contents based on the type of search
+	//type = true means "Advanced Search", type = false means "Basic Search"
 	function getRolesSearchTable ($con)
 	{
 		$type = $_REQUEST["type"];
@@ -116,6 +127,7 @@
 		mysqli_close($con);
 	}
 
+	//Insert a review written by a user into the database
 	function movieReview($con)
 	{
 		$movie_id = $_REQUEST['movie_id'];
@@ -136,6 +148,7 @@
 		mysqli_close($con);
 	}
 
+	//Insert the data from creating a person into the database
 	function person($con)
 	{
 		$movieArray = $_REQUEST['movieArray'];
@@ -148,6 +161,7 @@
 		$year_receivedArray = $_REQUEST['year_receivedArray'];
 		$alength = count($award_movieArray);
 
+		//insert initial data
 		$sql="INSERT INTO actor (first_name, middle_name, last_name, date_of_birth)
 		VALUES
 		('$_POST[firstname]','$_POST[middlename]','$_POST[lastname]','$_POST[birthdate]')";
@@ -159,6 +173,7 @@
 
 		$actorID = mysqli_insert_id($con);
 
+		//if the user chose to attach a movie, insert it one by one
 		if ($movieArray[0] != "NULL")
 		{
 			for ($i = 0; $i < $length; $i++)
@@ -175,6 +190,7 @@
 			}
 		}
 
+		//if the user chose to attach an award, insert it one by one
 		if ($awardArray[0] != "NULL")
 		{
 			for ($i = 0; $i < $alength; $i++)
@@ -196,6 +212,7 @@
 		mysqli_close($con);
 	}
 
+	//handles the authentication of the user
 	function signIn($con)
 	{
 		$user_id = mysqli_real_escape_string($con, $_REQUEST['user_id']);
@@ -229,6 +246,7 @@
 		mysqli_close($con);
 	}
 
+	//handles the data insertion for awards
 	function award($con)
 	{
 		$movieArray = $_REQUEST['movieArray'];
@@ -236,6 +254,7 @@
 		$year_receivedArray = $_REQUEST['year_receivedArray'];
 		$alength = count($movieArray);
 
+		//insert the initial award data
 		$sql="INSERT INTO award (name, reason)
 		VALUES
 		('$_POST[name]','$_POST[reason]')";
@@ -247,6 +266,7 @@
 
 		$awardID = mysqli_insert_id($con);
 
+		//if the user wihes to attach movies and actors, insert them
 		if ($movieArray[0] != "NULL")
 		{
 			for ($i = 0; $i < $alength; $i++)
@@ -267,6 +287,7 @@
 		mysqli_close($con);
 	}
 
+	//returns the awards for drop down menu
 	function getAward($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM award");
@@ -281,6 +302,7 @@
 		mysqli_close($con);
 	}
 
+	//return awards in table format
 	function getAwardTable($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM award");
@@ -295,6 +317,7 @@
 		mysqli_close($con);
 	}
 
+	//returns serach results for awards
 	function getAwardsSearchTable($con)
 	{
 		$type = $_REQUEST["type"];
@@ -331,6 +354,7 @@
 		mysqli_close($con);
 	}
 
+	//returns genres for drop down menus
 	function getGenre($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM genre");
@@ -344,6 +368,7 @@
 		mysqli_close($con);
 	}
 
+	//returns search results for hasaward
 	function getHasAwardSearchTable($con)
 	{
 		$type = $_REQUEST["type"];
@@ -388,6 +413,7 @@
 		mysqli_close($con);
 	}
 
+	//returns movies for drop down menus
 	function getMovies($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM movie");
@@ -402,6 +428,7 @@
 		mysqli_close($con);
 	}
 
+	//returns search results for movies
 	function getMoviesSearchTable($con)
 	{
 		$type = $_REQUEST["type"];
@@ -443,6 +470,7 @@
 		mysqli_close($con);
 	}
 
+	//returns movies in table format
 	function getMoviesTable($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM movie");
@@ -457,6 +485,7 @@
 		mysqli_close($con);
 	}
 
+	//returns all actors for drop down menus
 	function getPersons($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM actor");
@@ -471,6 +500,7 @@
 		mysqli_close($con);
 	}
 
+	//returns search result from the actors table
 	function getPersonsSearchTable($con)
 	{
 		$type = $_REQUEST["type"];
@@ -513,6 +543,7 @@
 		mysqli_close($con);
 	}
 
+	//returns actors in table format
 	function getPersonsTable($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM actor");
@@ -527,6 +558,7 @@
 		mysqli_close($con);
 	}
 
+	//returns search results for the review in table format
 	function getReviewSearchTable($con)
 	{
 		$type = $_REQUEST["type"];
@@ -568,6 +600,7 @@
 		mysqli_close($con);
 	}
 
+	//returns roles for dropdown menus
 	function getRoles($con)
 	{
 		$result = mysqli_query($con,"SELECT * FROM roletype");
@@ -591,6 +624,7 @@
 
 	$funct = $_REQUEST["funct"];
 
+	//decide what function to run
 	switch ($funct) 
 	{
 	    case "moviephp":

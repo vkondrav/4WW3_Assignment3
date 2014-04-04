@@ -1,3 +1,5 @@
+//This file handles the jqeury, javascript and ajax for movie.html
+
 var actorNum = 0;
 var genreNum = 0;
 var reviewNum = 1;
